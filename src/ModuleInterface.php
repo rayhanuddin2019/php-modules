@@ -5,6 +5,9 @@ namespace Mecha\Modular;
 use Interop\Container\ServiceProviderInterface;
 use Psr\Container\ContainerInterface;
 
+/**
+ * Represents a module - something that can provide services, extensions and be run.
+ */
 interface ModuleInterface extends ServiceProviderInterface
 {
     /**

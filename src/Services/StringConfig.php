@@ -6,6 +6,11 @@ use Psr\Container\ContainerInterface;
 use function array_map;
 use function strval;
 
+/**
+ * A service helper for string values that need to be interpolated with other service values.
+ *
+ * @since [*next-version*]
+ */
 class StringConfig
 {
     /**

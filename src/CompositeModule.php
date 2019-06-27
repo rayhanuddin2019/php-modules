@@ -6,7 +6,10 @@ use Generator;
 use Psr\Container\ContainerInterface;
 use Traversable;
 
-class ModularModule implements ModuleInterface
+/**
+ * A module that consists of other modules.
+ */
+class CompositeModule implements ModuleInterface
 {
     /**
      * @since [*next-version*]

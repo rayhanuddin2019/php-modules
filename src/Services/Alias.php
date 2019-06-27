@@ -5,6 +5,10 @@ namespace Mecha\Modular\Services;
 use Psr\Container\ContainerInterface;
 use function call_user_func_array;
 
+/**
+ * A service helper that creates an alias for another existing service.
+ * Can optionally default to invoking a callback and return its value if the original service does not exist.
+ */
 class Alias
 {
     /**

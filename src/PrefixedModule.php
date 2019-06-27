@@ -4,6 +4,11 @@ namespace Mecha\Modular;
 
 use function array_key_exists;
 
+/**
+ * A key converting module decorator that simply adds a prefix to each factory key.
+ *
+ * @see KeyConvertingModule
+ */
 class PrefixedModule extends KeyConvertingModule
 {
     /**

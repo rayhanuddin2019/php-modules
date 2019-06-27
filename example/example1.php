@@ -5,7 +5,7 @@ use Mecha\Modular\Containers\ServiceProviderContainer;
 use Mecha\Modular\Example\modules\HelloModule;
 use Mecha\Modular\Example\modules\JapanTimeModule;
 use Mecha\Modular\Example\modules\MainModule;
-use Mecha\Modular\ModularModule;
+use Mecha\Modular\CompositeModule;
 use Mecha\Modular\PrefixChangeModule;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -18,7 +18,7 @@ $modules = [
 ];
 
 // Create the app as a module that consists of other modules
-$app = new ModularModule($modules);
+$app = new CompositeModule($modules);
 
 // $c will be the top-level container used by the app and its modules
 $c = null;

@@ -11,6 +11,10 @@ use Psr\Container\ContainerInterface;
 use function array_map;
 use function call_user_func_array;
 
+/**
+ * A module decorator that can change the factory keys of the inner module using a callback.
+ * Internal references to factories are only detected if using the service helper classes such as {@link Factory}.
+ */
 class KeyConvertingModule
 {
     /**

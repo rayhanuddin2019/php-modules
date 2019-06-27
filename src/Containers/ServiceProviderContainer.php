@@ -11,6 +11,11 @@ use function array_key_exists;
 use function call_user_func_array;
 use function is_callable;
 
+/**
+ * A container specifically made for service providers. Does not cache! Use {@link CachingContainer} to cache values.
+ *
+ * @since [*next-version*]
+ */
 class ServiceProviderContainer implements ContainerInterface
 {
     /**

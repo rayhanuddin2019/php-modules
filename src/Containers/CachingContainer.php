@@ -5,6 +5,11 @@ namespace Mecha\Modular\Containers;
 use function array_key_exists;
 use Psr\Container\ContainerInterface;
 
+/**
+ * A simple container decorator that caches the results of the inner container.
+ *
+ * @since [*next-version*]
+ */
 class CachingContainer implements ContainerInterface
 {
     /**

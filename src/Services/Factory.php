@@ -6,6 +6,14 @@ use function call_user_func_array;
 use Psr\Container\ContainerInterface;
 use function array_map;
 
+/**
+ * A service helper that declares services that it depends on prior to invocation.
+ *
+ * Instances of this class have their dependencies accessible from the outside. The internal callback will receive those
+ * service instances instead of the full container. This makes service factories cleaner and also exposes the
+ * relationship between them, available for inspection, manipulation or error detection (such as circular dependency)
+ * or optimization.
+ */
 class Factory
 {
     /**

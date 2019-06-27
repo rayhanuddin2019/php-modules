@@ -6,6 +6,11 @@ use function strlen;
 use function strpos;
 use function substr;
 
+/**
+ * A key converting module decorator that detects and existing factory key prefix and changes it with a new prefix.
+ *
+ * @see KeyConvertingModule
+ */
 class PrefixChangeModule extends KeyConvertingModule implements ModuleInterface
 {
     /**

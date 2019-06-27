@@ -5,6 +5,11 @@ namespace Mecha\Modular\Containers;
 use Psr\Container\ContainerInterface;
 use function call_user_func_array;
 
+/**
+ * A container decorator for converting input keys prior to delegating to the inner container.
+ *
+ * This class is mostly used as a companion for the {@link KeyConvertingModule} class.
+ */
 class KeyConvertingContainer implements ContainerInterface
 {
     /**

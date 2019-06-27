@@ -6,6 +6,11 @@ use Psr\Container\ContainerInterface;
 use function array_unshift;
 use function call_user_func_array;
 
+/**
+ * A service helper for service provider extensions. Similar to {@link Factory} but also passes the previous value.
+ *
+ * @see Factory
+ */
 class Extension extends Factory
 {
     /**

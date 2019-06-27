@@ -4,6 +4,9 @@ namespace Mecha\Modular\Services;
 
 use Psr\Container\ContainerInterface;
 
+/**
+ * A simple service helper for static data, useful for configuration.
+ */
 class Config
 {
     /**

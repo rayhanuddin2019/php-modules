@@ -6,7 +6,7 @@ use Mecha\Modular\Example\modules\GreetingModule;
 use Mecha\Modular\Example\modules\HelloModule;
 use Mecha\Modular\Example\modules\JapanTimeModule;
 use Mecha\Modular\Example\modules\MainModule;
-use Mecha\Modular\ModularModule;
+use Mecha\Modular\CompositeModule;
 use Mecha\Modular\ModuleInterface;
 use Mecha\Modular\MultiBoxModule2;
 use Mecha\Modular\PrefixedModule;
@@ -39,7 +39,7 @@ $modules = [
 ];
 
 // Create the app as a module that consists of other modules
-$app = new ModularModule($modules);
+$app = new CompositeModule($modules);
 
 // $c will be the top-level container used by the app and its modules
 $c = null;
