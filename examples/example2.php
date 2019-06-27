@@ -1,14 +1,10 @@
 <?php
 
+use Mecha\Modular\CompositeModule;
 use Mecha\Modular\Containers\CachingContainer;
 use Mecha\Modular\Containers\ServiceProviderContainer;
 use Mecha\Modular\Example\modules\GreetingModule;
-use Mecha\Modular\Example\modules\HelloModule;
-use Mecha\Modular\Example\modules\JapanTimeModule;
-use Mecha\Modular\Example\modules\MainModule;
-use Mecha\Modular\CompositeModule;
 use Mecha\Modular\ModuleInterface;
-use Mecha\Modular\MultiBoxModule2;
 use Mecha\Modular\PrefixedModule;
 use Mecha\Modular\Services\Config;
 use Psr\Container\ContainerInterface;

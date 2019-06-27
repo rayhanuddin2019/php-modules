@@ -4,6 +4,7 @@ namespace Mecha\Modular;
 
 use Mecha\Modular\Containers\KeyConvertingContainer;
 use Mecha\Modular\Services\Alias;
+use Mecha\Modular\Services\Callback;
 use Mecha\Modular\Services\Extension;
 use Mecha\Modular\Services\Factory;
 use Mecha\Modular\Services\StringConfig;
@@ -90,7 +91,7 @@ class KeyConvertingModule
 
     protected function convertFactory($arg)
     {
-        if ($arg instanceof Factory || $arg instanceof Extension) {
+        if ($arg instanceof Factory) {
             $newFn = clone $arg;
             $newFn->deps = $this->convertKeyList($arg->deps);
             $newFn->callback = $this->convertFactory($arg->callback);

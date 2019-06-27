@@ -3,7 +3,9 @@
 namespace Mecha\Modular\Example\modules;
 
 use Mecha\Modular\ModuleInterface;
+use Mecha\Modular\Services\Callback;
 use Mecha\Modular\Services\Config;
+use Mecha\Modular\Services\Factory;
 use Mecha\Modular\Services\StringConfig;
 use Psr\Container\ContainerInterface;
 
@@ -19,7 +21,7 @@ class HelloModule implements ModuleInterface
      */
     public function run(ContainerInterface $c)
     {
-        echo $c->get('hello/message') . PHP_EOL;
+        $c->get('hello/run')();
     }
 
     /**
@@ -38,6 +40,11 @@ class HelloModule implements ModuleInterface
 
             // The name of the person to address in the greeting
             'hello/name' => new Config('admin'),
+
+            // The function to invoke the hello greeting
+            'hello/run' => new Callback(['hello/message'], function ($message) {
+                echo $message . PHP_EOL;
+            }),
         ];
     }
 
