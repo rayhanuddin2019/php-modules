@@ -11,7 +11,7 @@
     "autoload": {
         "psr-4": {
             "Mecha\\Modular\\": "src",
-            "Mecha\\Modular\\Example\\": "example"
+            "Mecha\\Modular\\Example\\": "examples"
         }
     }
 }

@@ -30,7 +30,7 @@ class MainModule implements ModuleInterface
     {
         return [
             // The printf-style pattern to use for the greeting name replacement
-            'main/name/pattern' => new Config('the time in Tokyo right is %s'),
+            'main/name/pattern' => new Config('the time in Tokyo right now is %s'),
         ];
     }
 
