@@ -1,14 +1,17 @@
 {
-    "name": "mecha/php-module",
+    "name": "mecha/php-modules",
     "description": "A PHP module system",
     "type": "library",
     "license": "MIT",
-    "requires": {
-        "php": "^5.4 | ^7.0"
+    "require": {
+        "php": "^7.0",
+        "psr/container": "^1.0",
+        "container-interop/service-provider": "^0.4"
     },
     "autoload": {
         "psr-4": {
-            "Mecha\\Modular\\": "src"
+            "Mecha\\Modular\\": "src",
+            "Mecha\\Modular\\Example\\": "example"
         }
     }
 }
