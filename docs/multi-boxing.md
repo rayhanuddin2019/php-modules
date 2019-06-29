@@ -205,7 +205,7 @@ added bonus, such a class can also use the list of dependencies to auto-get thos
 of having other implementations, such as [`Config`][config] for static values or [`Callback`][callback] for callback
 functions, which would have otherwise been nested anonymous functions. Yuck!
 
-```
+```php
 [
     'foo' => new Factory(['bar'], function ($bar) {
         return new SomeClass($bar);

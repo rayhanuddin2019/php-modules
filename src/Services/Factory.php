@@ -2,9 +2,9 @@
 
 namespace Mecha\Modular\Services;
 
-use function call_user_func_array;
 use Psr\Container\ContainerInterface;
 use function array_map;
+use function call_user_func_array;
 
 /**
  * A service helper that declares services that it depends on prior to invocation.
@@ -17,7 +17,7 @@ use function array_map;
 class Factory
 {
     /**
-     * @var StringConfig[]
+     * @var string[]
      */
     public $deps;
 
@@ -31,8 +31,8 @@ class Factory
      *
      * @since [*next-version*]
      *
-     * @param StringConfig[] $deps
-     * @param callable       $callback
+     * @param string[] $deps
+     * @param callable $callback
      */
     public function __construct(array $deps, callable $callback)
     {
