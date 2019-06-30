@@ -3,8 +3,9 @@
 namespace Mecha\Modular\Example\modules;
 
 use Mecha\Modular\ModuleInterface;
+use Mecha\Modular\Service;
+use Mecha\Modular\Services\Alias;
 use Mecha\Modular\Services\Config;
-use Mecha\Modular\Services\Factory;
 use Psr\Container\ContainerInterface;
 
 /**

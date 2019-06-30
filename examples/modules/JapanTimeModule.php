@@ -5,8 +5,8 @@ namespace Mecha\Modular\Example\modules;
 use DateTime;
 use Exception;
 use Mecha\Modular\ModuleInterface;
+use Mecha\Modular\Service;
 use Mecha\Modular\Services\Config;
-use Mecha\Modular\Services\Factory;
 use Mecha\Modular\Services\StringConfig;
 use Psr\Container\ContainerInterface;
 use function curl_close;
@@ -44,7 +44,7 @@ class JapanTimeModule implements ModuleInterface
             ]),
 
             // The function that gets the time
-            'jap_time/time' => new Factory(['jap_time/request_url'], function ($url) {
+            'jap_time/time' => new Service(['jap_time/request_url'], function ($url) {
                 $curl = curl_init($url);
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
                 curl_setopt($curl, CURLOPT_HTTPHEADER, [

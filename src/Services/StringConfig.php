@@ -2,8 +2,8 @@
 
 namespace Mecha\Modular\Services;
 
+use Mecha\Modular\Service;
 use Psr\Container\ContainerInterface;
-use function array_map;
 use function strval;
 
 /**
@@ -11,7 +11,7 @@ use function strval;
  *
  * @since [*next-version*]
  */
-class StringConfig
+class StringConfig extends Service
 {
     /**
      * @var string
@@ -34,35 +34,30 @@ class StringConfig
     public function __construct($string, $deps)
     {
         $this->string = $string;
-        $this->deps = $deps;
+
+        parent::__construct($deps, [$this, 'interpolate']);
     }
 
     /**
+     * Wrap deps in an array, to bypass them being unpacked into individual arguments.
+     *
      * @param ContainerInterface $c
      *
-     * @return mixed
+     * @return array
      */
-    public function __invoke(ContainerInterface $c)
+    protected function getDeps(ContainerInterface $c)
     {
-        $args = array_map(
-            function ($key) use ($c) {
-                return ($key === 'c') ? $c : $c->get($key);
-            },
-            $this->deps
-        );
-
-        return $this->interpolate($this->string, $args);
+        return [parent::getDeps($c)];
     }
 
     /**
      * Interpolates context values into the message placeholders.
      *
-     * @param string   $message The string to interpolate.
      * @param string[] $context An associative array map of values to replace in the message.
      *
      * @return string The interpolated message.
      */
-    protected function interpolate($message, array $context)
+    protected function interpolate(array $context)
     {
         $replace = [];
 
@@ -70,6 +65,6 @@ class StringConfig
             $replace['{' . $key . '}'] = strval($val);
         }
 
-        return strtr($message, $replace);
+        return strtr($this->string, $replace);
     }
 }

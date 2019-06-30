@@ -1,6 +1,6 @@
 <?php
 
-namespace Mecha\Modular\Services;
+namespace Mecha\Modular;
 
 use Psr\Container\ContainerInterface;
 use function array_map;
@@ -14,7 +14,7 @@ use function call_user_func_array;
  * relationship between them, available for inspection, manipulation or error detection (such as circular dependency)
  * or optimization.
  */
-class Factory
+class Service
 {
     /**
      * @var string[]
@@ -24,7 +24,7 @@ class Factory
     /**
      * @var callable
      */
-    public $callback;
+    public $factory;
 
     /**
      * Constructor.
@@ -37,7 +37,7 @@ class Factory
     public function __construct(array $deps, callable $callback)
     {
         $this->deps = $deps;
-        $this->callback = $callback;
+        $this->factory = $callback;
     }
 
     /**
@@ -47,7 +47,7 @@ class Factory
      */
     public function __invoke(ContainerInterface $c)
     {
-        return call_user_func_array($this->callback, $this->getArgs($c));
+        return call_user_func_array($this->factory, $this->getDeps($c));
     }
 
     /**
@@ -55,13 +55,8 @@ class Factory
      *
      * @return array
      */
-    protected function getArgs(ContainerInterface $c)
+    protected function getDeps(ContainerInterface $c)
     {
-        return array_map(
-            function ($key) use ($c) {
-                return ($key === 'c') ? $c : $c->get($key);
-            },
-            $this->deps
-        );
+        return array_map([$c, 'get'], $this->deps);
     }
 }

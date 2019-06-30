@@ -5,7 +5,6 @@ namespace Mecha\Modular\Example\modules;
 use Mecha\Modular\ModuleInterface;
 use Mecha\Modular\Services\Callback;
 use Mecha\Modular\Services\Config;
-use Mecha\Modular\Services\Factory;
 use Mecha\Modular\Services\StringConfig;
 use Psr\Container\ContainerInterface;
 

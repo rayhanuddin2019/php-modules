@@ -198,9 +198,9 @@ We can use instances of this class as factory functions in our modules:
 ]
 ```
 
-And therein lies the secret to module multi-boxing. By creating a [`Factory`][factory] class that exposes its
-dependencies, we can now crawl the list of services programmatically and re-wire the services however we want. As an
-added bonus, such a class can also use the list of dependencies to auto-get those services from the container and pass
+And therein lies the secret to module multi-boxing. By creating a [`Service`][service] class that exposes its
+dependencies, we can now crawl the list of services programmatically and re-wire them however we want. As an added
+bonus, such a class can also use the list of dependencies to auto-get those services from the container and pass
 **those** to the factory function rather than passing the whole container. And we haven't even mentioned the utility
 of having other implementations, such as [`Config`][config] for static values or [`Callback`][callback] for callback
 functions, which would have otherwise been nested anonymous functions. Yuck!
@@ -211,19 +211,24 @@ functions, which would have otherwise been nested anonymous functions. Yuck!
         return new SomeClass($bar);
     }),
     'bar' => new Config('path/to/template/file.twig'),
+    'lorem' => new Callback(['some_dep'], function ($dep) {
+        return $dep . '_' . $dep';
+    }),
 ]
 ```
 
 Now you might ask, wasn't the solution supposed to require little to no effort on the part of modules? Well, that's why
 the class analogy was made. Here, the module author does not need to add additional services to support multiple
 instances of certain services or modules. Instead, they can simply use an alternative service declaration strategy that
-also makes their module support multi-boxing.
+also makes their module support multi-boxing. But it's all optional - they can choose not to use these helper classes,
+just like how a class author can choose not to make certain properties injectable via the constructor.
 
 Most of the work still needs to be done by the application. If the application needs to use two instances of the
 `NavMenuModule`, then this package provides it with the tools to do so. Namely, a
 [`KeyConvertingModule`][key-converting-module] class;  a decorator class which can rename all of the services in the
-module along with any dependencies used by factories and extensions. The [`PrefixChangeModule`] class in particular is
-especially useful since it can change service prefixes, for instance from `nav_menu/` to `bottom_menu/`.
+module along with any dependencies used by factories and extensions. The [`PrefixChangeModule`][prefix-change-module]
+class in particular is especially useful since it can change service prefixes, for instance from `nav_menu/` to
+`bottom_menu/`.
 
 ---
 
@@ -233,7 +238,7 @@ Thank you for reading! :D
 [conventions]: ./conventions.md
 [psr11+]: https://github.com/container-interop/service-provider
 [php__invoke]: https://www.php.net/manual/en/language.oop5.magic.php#object.invoke
-[factory]: ../src/Services/Factory.php
+[service]: ../src/Service.php
 [config]: ../src/Services/Config.php
 [callback]: ../src/Services/Callback.php
 [key-converting-module]: ../src/KeyConvertingModule.php

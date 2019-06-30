@@ -2,14 +2,15 @@
 
 namespace Mecha\Modular\Services;
 
+use Mecha\Modular\Service;
 use Psr\Container\ContainerInterface;
 use function call_user_func_array;
 
 /**
  * A service helper that creates an alias for another existing service.
- * Can optionally default to invoking a callback and return its value if the original service does not exist.
+ * Defaults to invoking a callback and returning its value if the original service does not exist.
  */
-class Alias
+class Alias extends Service
 {
     /**
      * @var string
@@ -17,22 +18,18 @@ class Alias
     public $key;
 
     /**
-     * @var callable
-     */
-    public $default;
-
-    /**
      * Constructor.
      *
      * @since [*next-version*]
      *
-     * @param string $key
-     * @param callable     $default
+     * @param string   $key
+     * @param callable $default
      */
-    public function __construct(string $key, callable $default = null)
+    public function __construct(string $key, callable $default)
     {
+        parent::__construct([], $default);
+
         $this->key = $key;
-        $this->default = $default;
     }
 
     /**
@@ -42,14 +39,10 @@ class Alias
      */
     public function __invoke(ContainerInterface $c)
     {
-        if ($this->default === null) {
-            return $c->get($this->key);
-        }
-
         if ($c->has($this->key)) {
             return $c->get($this->key);
         }
 
-        return call_user_func_array($this->default, [$c]);
+        return call_user_func_array($this->factory, [$c]);
     }
 }
