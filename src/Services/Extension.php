@@ -2,7 +2,6 @@
 
 namespace Mecha\Modular\Services;
 
-use Mecha\Modular\Service;
 use Psr\Container\ContainerInterface;
 use function array_merge;
 use function call_user_func_array;

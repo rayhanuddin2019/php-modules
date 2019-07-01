@@ -3,6 +3,7 @@
 namespace Mecha\Modular;
 
 use Mecha\Modular\Containers\KeyConvertingContainer;
+use Mecha\Modular\Services\Service;
 use Psr\Container\ContainerInterface;
 use function array_map;
 use function call_user_func_array;

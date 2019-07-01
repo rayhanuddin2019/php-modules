@@ -1,6 +1,6 @@
 <?php
 
-namespace Mecha\Modular;
+namespace Mecha\Modular\Services;
 
 use Psr\Container\ContainerInterface;
 use function array_map;
