@@ -238,7 +238,7 @@ Thank you for reading! :D
 [conventions]: ./conventions.md
 [psr11+]: https://github.com/container-interop/service-provider
 [php__invoke]: https://www.php.net/manual/en/language.oop5.magic.php#object.invoke
-[service]: ../src/Service.php
+[service]: ../src/Services/Service.php
 [config]: ../src/Services/Config.php
 [callback]: ../src/Services/Callback.php
 [key-converting-module]: ../src/KeyConvertingModule.php
