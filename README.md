@@ -1,6 +1,6 @@
 # php-modules
 
-A PHP module system proposal and prototype.
+A PHP module system proposal and prototype. Do **NOT** use this in production!
 
 [Read the why, what and how here][docs].
 
