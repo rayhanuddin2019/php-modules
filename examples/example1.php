@@ -1,20 +1,20 @@
 <?php
 
+use Mecha\Modular\CompositeModule;
 use Mecha\Modular\Containers\CachingContainer;
 use Mecha\Modular\Containers\ServiceProviderContainer;
 use Mecha\Modular\Example\modules\HelloModule;
 use Mecha\Modular\Example\modules\JapanTimeModule;
 use Mecha\Modular\Example\modules\MainModule;
-use Mecha\Modular\CompositeModule;
-use Mecha\Modular\PrefixChangeModule;
+use Mecha\Modular\PrefixedModule;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $modules = [
-    'hello' => new HelloModule(),
-    'hello_time' => new PrefixChangeModule(new HelloModule(), 'hello/', 'hello_time/'),
-    'japan_time' => new JapanTimeModule(),
-    'main' => new MainModule(),
+    'hello' => new PrefixedModule('hello/', new HelloModule()),
+    'hello_time' => new PrefixedModule('hello_time/', new HelloModule()),
+    'japan_time' => new PrefixedModule('jap_time/', new JapanTimeModule()),
+    'main' => new PrefixedModule('main/', new MainModule())
 ];
 
 // Create the app as a module that consists of other modules

@@ -30,7 +30,7 @@ class MainModule implements ModuleInterface
     {
         return [
             // The printf-style pattern to use for the greeting name replacement
-            'main/name/pattern' => new Config('the time in Tokyo right now is %s'),
+            'name/pattern' => new Config('the time in Tokyo right now is %s'),
         ];
     }
 
@@ -43,7 +43,7 @@ class MainModule implements ModuleInterface
     {
         return [
             // Changes the greeting name in the hello module to the current Tokyo time in Japan
-            'hello_time/name' => new Service(['main/name/pattern', 'jap_time/time'], 'sprintf'),
+            'hello_time/name' => new Service(['name/pattern', 'jap_time/time'], 'sprintf'),
         ];
     }
 }

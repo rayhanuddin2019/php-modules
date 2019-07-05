@@ -36,15 +36,15 @@ class JapanTimeModule implements ModuleInterface
     {
         return [
             // The timezone name to use
-            'jap_time/timezone' => new Config('Asia/Tokyo'),
+            'timezone' => new Config('Asia/Tokyo'),
 
             // The URL from which to request the time
-            'jap_time/request_url' => new StringConfig('http://worldtimeapi.org/api/timezone/{tz}', [
-                'tz' => 'jap_time/timezone',
+            'request_url' => new StringConfig('http://worldtimeapi.org/api/timezone/{tz}', [
+                'tz' => 'timezone',
             ]),
 
             // The function that gets the time
-            'jap_time/time' => new Service(['jap_time/request_url'], function ($url) {
+            'time' => new Service(['request_url'], function ($url) {
                 $curl = curl_init($url);
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
                 curl_setopt($curl, CURLOPT_HTTPHEADER, [

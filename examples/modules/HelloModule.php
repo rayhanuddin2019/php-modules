@@ -20,7 +20,7 @@ class HelloModule implements ModuleInterface
      */
     public function run(ContainerInterface $c)
     {
-        $c->get('hello/run')();
+        $c->get('run')();
     }
 
     /**
@@ -32,16 +32,16 @@ class HelloModule implements ModuleInterface
     {
         return [
             // The greeting message
-            'hello/message' => new StringConfig('Hello there, {name}', [
-                // the {name} placeholder is the "hello/name" service
-                'name' => 'hello/name'
+            'message' => new StringConfig('Hello there, {name}', [
+                // the {name} placeholder is the "name" service
+                'name' => 'name'
             ]),
 
             // The name of the person to address in the greeting
-            'hello/name' => new Config('admin'),
+            'name' => new Config('admin'),
 
             // The function to invoke the hello greeting
-            'hello/run' => new Callback(['hello/message'], function ($message) {
+            'run' => new Callback(['message'], function ($message) {
                 echo $message . PHP_EOL;
             }),
         ];

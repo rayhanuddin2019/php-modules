@@ -16,10 +16,10 @@ class PrefixedModule extends KeyConvertingModule
      *
      * @since [*next-version*]
      *
-     * @param ModuleInterface $module
      * @param string          $prefix
+     * @param ModuleInterface $module
      */
-    public function __construct(ModuleInterface $module, string $prefix)
+    public function __construct(string $prefix, ModuleInterface $module)
     {
         $factories = $module->getFactories();
         $callback = function ($key) use ($prefix, $factories) {

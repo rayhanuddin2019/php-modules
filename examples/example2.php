@@ -12,8 +12,8 @@ use Psr\Container\ContainerInterface;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $modules = [
-    'admin_greet' => new PrefixedModule(new GreetingModule(), 'admin_greet/'),
-    'comp_greet' => new PrefixedModule(new GreetingModule(), 'comp_greet/'),
+    'admin_greet' => new PrefixedModule('admin_greet/', new GreetingModule()),
+    'comp_greet' => new PrefixedModule('comp_greet/', new GreetingModule()),
     'main' => new class implements ModuleInterface {
         public function run(ContainerInterface $c)
         {
