@@ -76,12 +76,8 @@ Unlike the first convention, which helps to prevent hard module dependencies, th
 
 Technically, a module _can_ declare a factory with a key that is also used by another module. This won't create a hard
 dependency; either module will still work fine without the other. But the resulting behavior is **undefined**. That is,
-the behavior depends on how the application uses the modules. For this reason, modules should not declare factories with
-identical keys. To prevent accidental collisions, modules should therefore prefix their service keys with a
-module-specific string. 
-
-If accidental collision occurs still, perhaps due to modules using the same prefix, then it falls unto the application
-to resolve the conflicts. 
+the behavior depends on how the application uses the modules. For this reason, modules should not _intentionally_
+declare factories with identical keys.
 
 If a module desires to take over another module's service, it should create an extension that simply returns the new
 instance. Extensions are intended to be used in this way and have clear defined behavior. This semantically separates 
@@ -91,7 +87,19 @@ extensions are used for modifying and integrating with other modules.
 If multiple modules provide extensions for the same service and the order in which extensions are applied matters,
 it falls unto the application to properly sort the modules or the extensions.
 
-### 3. Service keys should use snake_case and forward-slashes for delimiters
+### 3. Modules shall not namespace their services
+
+Preventing collisions (intentional or otherwise), is the job of the consuming application. Module developers should
+not be burdened with such as concern. It is unreasonable to expect a module to catered for every possible service name
+collision case. Even if a module-specific prefix is used, another 3rd party module might use the same key. Therefore,
+if an application wants guarantees, it needs to introduce its own prevention measures. After all, a module can't know
+about every other module that exists, but the application _can_ know which modules it's using.
+
+Therefore, modules should use simple and bare service keys. If the application requires it, it can decorate the module,
+with classes similar to the ones found in this package, to namespace its services with whatever prefix, suffix or mask
+it needs.
+
+### 4. Service keys should use snake_case and forward-slashes for delimiters
 
 Service keys should use `snake_case` for consistency. The use of `camelCase`, `kebab-case` or any other `weird+case`
 should be avoided. This reduces confusion and disconnect between modules, allowing the application to use the same
@@ -127,7 +135,7 @@ class NavMenuModule implements ModuleInterface
             },
         ];
     }
-    
+
     public function getExtension() {
         return [];
     }

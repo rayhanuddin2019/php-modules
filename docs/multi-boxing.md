@@ -15,45 +15,45 @@ But most importantly, why would you want to have 2 instances of the same module?
 ## Why?
 
 To explain why we would want module multi-boxing, we're going to be using the nav menu module example that we used in
-the [modules][modules] section., with some modifications.
+the [modules][modules] section, with some modifications.
 
 ```php
 class NavMenuModule implements ModuleInterface
 {
     public function run(ContainerInterface $c) {
-        echo $c->get('nav_menu/twig/env')->render(
-            $c->get('nav_menu/template/name'),
-            $c->get('nav_menu/template/args')
+        echo $c->get('twig/env')->render(
+            $c->get('template/name'),
+            $c->get('template/args')
         );
     }
 
     public function getFactories() {
         return [
-            'nav_menu/links' => function (ContainerInterface $c) {
+            'links' => function (ContainerInterface $c) {
                 return [
                     'Home' => '/index.php',
                 ];
             },
-            'nav_menu/template/name' => function (ContainerInterface $c) {
+            'template/name' => function (ContainerInterface $c) {
                 return 'menu.twig';
             },
-            'nav_menu/template/args' => function (ContainerInterface $c) {
+            'template/args' => function (ContainerInterface $c) {
                 return [
                     'text_color' => '#fff',
                     'bg_color' => '#24292e',
                     'position' => 'top',
-                    'links' => $c->get('nav_menu/links'),
+                    'links' => $c->get('links'),
                 ];
             },
-            'nav_menu/twig/loader' => function (ContainerInterface $c) {
+            'twig/loader' => function (ContainerInterface $c) {
                 return new FilesystemLoader('/path/to/templates');
             },
-            'nav_menu/twig/env' => function (ContainerInterface $c) {
-                return new Environment($c->get('nav_menu/twig/loader'), []);
+            'twig/env' => function (ContainerInterface $c) {
+                return new Environment($c->get('twig/loader'), []);
             },
         ];
     }
-    
+
     public function getExtension() {
         return [];
     }
@@ -62,12 +62,13 @@ class NavMenuModule implements ModuleInterface
 
 Let's assume that we want to use this module for our website to add a top navigation menu, but we also want to have
 a second navigation menu on the bottom. This module already provides this functionality; we just need to change the
-`nav_menu/templates/args` service to have `'position' => 'bottom'`.
+`templates/args` service to have `'position' => 'bottom'`.
 
 Without multi-boxing, we'd need to copy and paste the module class code, rename it and change the service keys so as to
 not conflict. Why copy? Because we can't simply extend the class and override `getFactories()`; the factory functions
-have internal references. The `nav_menu/template/args` service internally references `nav_menu/link`, so even if we
-rename the service to `second_nav_menu/template/args`, the factory would still be using the first module's links array.
+have internal references. The `template/args` service internally references `link`, so even if we rename the service
+to `second_template/args`, the factory function would still internally call `$c->get('links')`, the first module's links
+array.
 
 Another possibility is to have the module provide a way to have multiple nav menus. This would require the module to
 be written differently, explicitly providing multiple nav menu support and thus removing the need for multiple module
@@ -78,9 +79,9 @@ a service that holds a list of nav menu instances (previously known as template 
 class NavMenuModule implements ModuleInterface
 {
     public function run(ContainerInterface $c) {
-        foreach ($c->get('nav_menu/instances') as $instance) {
-            echo $c->get('nav_menu/twig/env')->render(
-                $c->get('nav_menu/template/name'),
+        foreach ($c->get('instances') as $instance) {
+            echo $c->get('twig/env')->render(
+                $c->get('template/name'),
                 $instance
             );
         }
@@ -88,7 +89,7 @@ class NavMenuModule implements ModuleInterface
 
     public function getFactories() {
         return [
-            'nav_menu/instances' => function (ContainerInterface $c) {
+            'instances' => function (ContainerInterface $c) {
                 return [
                     'main' => [
                         'links' => [
@@ -100,28 +101,79 @@ class NavMenuModule implements ModuleInterface
                     ],
                 ];
             },
-            'nav_menu/template/name' => function (ContainerInterface $c) {
+            'template/name' => function (ContainerInterface $c) {
                 return 'menu.twig';
             },
-            'nav_menu/twig/loader' => function (ContainerInterface $c) {
+            'twig/loader' => function (ContainerInterface $c) {
                 return new FilesystemLoader('/path/to/templates');
             },
-            'nav_menu/twig/env' => function (ContainerInterface $c) {
-                return new Environment($c->get('nav_menu/twig/loader'), []);
+            'twig/env' => function (ContainerInterface $c) {
+                return new Environment($c->get('twig/loader'), []);
             },
         ];
     }
-    
+
     public function getExtension() {
         return [];
     }
 }
 ```
 
-This is inconvenient as it puts unnecessary burden on module developers who would now have to think about how consumers
-might want to use the modules. Ideally, multi-boxing is an automatic process that requires no extra effort from the
-module authors, like how OOP classes are automatically instantiable in different ways with little to no effort from the
-class author. 
+Another alternative is to have the module accept a prefix during construction.
+
+```php
+class NavMenuModule implements ModuleInterface
+{
+    protected $prefix;
+
+    public function __contruct($prefix) {
+        $this->prefix = $prefix;
+    }
+
+    public function run(ContainerInterface $c) {
+        echo $c->get($this->prefix . 'twig/env')->render(
+            $c->get($this->prefix . 'template/name'),
+            $c->get($this->prefix . 'template/args')
+        );
+    }
+
+    public function getFactories() {
+        return [
+            $this->prefix . 'links' => function (ContainerInterface $c) {
+                return [
+                    'Home' => '/index.php',
+                ];
+            },
+            $this->prefix . 'template/name' => function (ContainerInterface $c) {
+                return 'menu.twig';
+            },
+            $this->prefix . 'template/args' => function (ContainerInterface $c) {
+                return [
+                    'text_color' => '#fff',
+                    'bg_color' => '#24292e',
+                    'position' => 'top',
+                    'links' => $c->get($this->prefix . 'links'),
+                ];
+            },
+            '$this->prefix . twig/loader' => function (ContainerInterface $c) {
+                return new FilesystemLoader('/path/to/templates');
+            },
+            $this->prefix . 'twig/env' => function (ContainerInterface $c) {
+                return new Environment($c->get($this->prefix . 'twig/loader'), []);
+            },
+        ];
+    }
+
+    public function getExtension() {
+        return [];
+    }
+}
+```
+
+All of the above solutions are really inconvenient and put unnecessary burden on module developers, who would now have
+to think about how consumers might want to use the modules. Ideally, multi-boxing is an automatic process that requires
+no extra effort from the module authors, like how OOP classes are automatically instantiable in different ways with
+little to no effort from the class author.
 
 ## How?
 
@@ -226,9 +278,7 @@ just like how a class author can choose not to make certain properties injectabl
 Most of the work still needs to be done by the application. If the application needs to use two instances of the
 `NavMenuModule`, then this package provides it with the tools to do so. Namely, a
 [`KeyConvertingModule`][key-converting-module] class;  a decorator class which can rename all of the services in the
-module along with any dependencies used by factories and extensions. The [`PrefixChangeModule`][prefix-change-module]
-class in particular is especially useful since it can change service prefixes, for instance from `nav_menu/` to
-`bottom_menu/`.
+module along with any dependencies used by factories and extensions.
 
 ---
 
