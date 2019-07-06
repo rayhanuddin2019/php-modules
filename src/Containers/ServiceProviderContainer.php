@@ -61,7 +61,7 @@ class ServiceProviderContainer implements ContainerInterface
     public function get($id)
     {
         if (!$this->has($id)) {
-            throw new class extends Exception implements NotFoundExceptionInterface
+            throw new class("Service $id does not exist") extends Exception implements NotFoundExceptionInterface
             {
             };
         }
