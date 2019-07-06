@@ -254,7 +254,7 @@ And therein lies the secret to module multi-boxing. By creating a [`Service`][se
 dependencies, we can now crawl the list of services programmatically and re-wire them however we want. As an added
 bonus, such a class can also use the list of dependencies to auto-get those services from the container and pass
 **those** to the factory function rather than passing the whole container. And we haven't even mentioned the utility
-of having other implementations, such as [`Config`][config] for static values or [`Callback`][callback] for callback
+of having other implementations, such as [`Value`][value] for static values or [`Callback`][callback] for callback
 functions, which would have otherwise been nested anonymous functions. Yuck!
 
 ```php
@@ -289,7 +289,7 @@ Thank you for reading! :D
 [psr11+]: https://github.com/container-interop/service-provider
 [php__invoke]: https://www.php.net/manual/en/language.oop5.magic.php#object.invoke
 [service]: ../src/Services/Service.php
-[config]: ../src/Services/Config.php
+[value]: ../src/Services/Value.php
 [callback]: ../src/Services/Callback.php
 [key-converting-module]: ../src/KeyConvertingModule.php
 [prefix-change-module]: ../src/PrefixChangeModule.php

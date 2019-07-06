@@ -6,7 +6,7 @@ use Mecha\Modular\Containers\ServiceProviderContainer;
 use Mecha\Modular\Example\modules\GreetingModule;
 use Mecha\Modular\ModuleInterface;
 use Mecha\Modular\PrefixedModule;
-use Mecha\Modular\Services\Config;
+use Mecha\Modular\Services\Value;
 use Psr\Container\ContainerInterface;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -27,8 +27,8 @@ $modules = [
         public function getExtensions()
         {
             return [
-                'admin_greet/name' => new Config('Administrator'),
-                'comp_greet/name' => new Config('Computer'),
+                'admin_greet/name' => new Value('Administrator'),
+                'comp_greet/name' => new Value('Computer'),
             ];
         }
     },

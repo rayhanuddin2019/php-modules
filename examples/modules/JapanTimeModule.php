@@ -5,9 +5,9 @@ namespace Mecha\Modular\Example\modules;
 use DateTime;
 use Exception;
 use Mecha\Modular\ModuleInterface;
-use Mecha\Modular\Services\Config;
+use Mecha\Modular\Services\Value;
 use Mecha\Modular\Services\Service;
-use Mecha\Modular\Services\StringConfig;
+use Mecha\Modular\Services\StringValue;
 use Psr\Container\ContainerInterface;
 use function curl_close;
 use function curl_error;
@@ -36,10 +36,10 @@ class JapanTimeModule implements ModuleInterface
     {
         return [
             // The timezone name to use
-            'timezone' => new Config('Asia/Tokyo'),
+            'timezone' => new Value('Asia/Tokyo'),
 
             // The URL from which to request the time
-            'request_url' => new StringConfig('http://worldtimeapi.org/api/timezone/{tz}', [
+            'request_url' => new StringValue('http://worldtimeapi.org/api/timezone/{tz}', [
                 'tz' => 'timezone',
             ]),
 

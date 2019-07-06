@@ -3,7 +3,7 @@
 namespace Mecha\Modular\Example\modules;
 
 use Mecha\Modular\ModuleInterface;
-use Mecha\Modular\Services\Config;
+use Mecha\Modular\Services\Value;
 use Mecha\Modular\Services\Service;
 use Psr\Container\ContainerInterface;
 
@@ -30,7 +30,7 @@ class MainModule implements ModuleInterface
     {
         return [
             // The printf-style pattern to use for the greeting name replacement
-            'name/pattern' => new Config('the time in Tokyo right now is %s'),
+            'name/pattern' => new Value('the time in Tokyo right now is %s'),
         ];
     }
 

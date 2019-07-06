@@ -10,7 +10,7 @@ use function strval;
  *
  * @since [*next-version*]
  */
-class StringConfig extends Service
+class StringValue extends Service
 {
     /**
      * @var string
