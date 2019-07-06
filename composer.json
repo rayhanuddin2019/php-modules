@@ -10,7 +10,11 @@
     },
     "autoload": {
         "psr-4": {
-            "Mecha\\Modular\\": "src",
+            "Mecha\\Modular\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "Mecha\\Modular\\Example\\": "examples"
         }
     }
