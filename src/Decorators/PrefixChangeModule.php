@@ -1,7 +1,8 @@
 <?php
 
-namespace Mecha\Modular;
+namespace Mecha\Modular\Decorators;
 
+use Mecha\Modular\ModuleInterface;
 use function strlen;
 use function strpos;
 use function substr;

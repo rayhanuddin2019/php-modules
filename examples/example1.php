@@ -3,10 +3,10 @@
 use Mecha\Modular\CompositeModule;
 use Mecha\Modular\Containers\CachingContainer;
 use Mecha\Modular\Containers\ServiceProviderContainer;
+use Mecha\Modular\Decorators\PrefixedModule;
 use Mecha\Modular\Example\modules\HelloModule;
 use Mecha\Modular\Example\modules\JapanTimeModule;
 use Mecha\Modular\Example\modules\MainModule;
-use Mecha\Modular\PrefixedModule;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 

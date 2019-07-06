@@ -1,8 +1,9 @@
 <?php
 
-namespace Mecha\Modular;
+namespace Mecha\Modular\Decorators;
 
 use Mecha\Modular\Containers\KeyConvertingContainer;
+use Mecha\Modular\ModuleInterface;
 use Mecha\Modular\Services\Service;
 use Psr\Container\ContainerInterface;
 use function array_map;

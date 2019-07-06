@@ -3,9 +3,9 @@
 use Mecha\Modular\CompositeModule;
 use Mecha\Modular\Containers\CachingContainer;
 use Mecha\Modular\Containers\ServiceProviderContainer;
+use Mecha\Modular\Decorators\PrefixedModule;
 use Mecha\Modular\Example\modules\GreetingModule;
 use Mecha\Modular\ModuleInterface;
-use Mecha\Modular\PrefixedModule;
 use Mecha\Modular\Services\Value;
 use Psr\Container\ContainerInterface;
 
