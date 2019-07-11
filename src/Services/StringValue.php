@@ -30,7 +30,7 @@ class StringValue extends Service
      * @param string   $string
      * @param string[] $deps
      */
-    public function __construct($string, $deps)
+    public function __construct($string, $deps = [])
     {
         $this->string = $string;
 
